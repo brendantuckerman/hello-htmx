@@ -66,4 +66,30 @@ INSERT INTO comments (username, comment_text, users_id ) VALUES (
 );
 ```
 
+Basic `INNER JOIN` to grab user and comments
 
+```sql
+    SELECT * FROM users INNER JOIN comments ON users.id = comments.users_id;
+
+```
+
+Specific ` INNER JOIN`:
+
+```sql
+    SELECT users.username, comments.comment_text, comments.created_at  FROM users INNER JOIN comments ON users.id = comments.users_id;
+
+```
+
+`LEFT JOIN` / `RIGHT JOIN`
+
+Returns all users, whether or not they have comments:
+
+```sql
+SELECT * FROM users LEFT JOIN comments ON users.id = comments.users_id;
+```
+
+Returns all comments (but not all the users if they hane't made a comment):
+
+```sql
+SELECT * FROM users RIGHT JOIN comments ON users.id = comments.users_id;
+```

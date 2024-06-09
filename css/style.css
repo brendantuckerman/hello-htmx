@@ -1,0 +1,36 @@
+/* Base stylesheet */
+
+
+header{
+    display: flex;
+    background-color: blue;
+    color: white;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    align-items: center;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   
+    width: 100%;
+    gap: 1rem;
+    padding-top: 3rem;
+}
+
+
+
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding: 0.5rem;
+}
