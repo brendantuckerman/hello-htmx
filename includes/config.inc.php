@@ -28,8 +28,7 @@
   if (!isset($_SESSION['last_regeneration'])) {
     
     //strengthen protection
-    session_regenerate_id(true);
-    $_SESSION['last_regeneration'] = time();
+    egenerate_session_id();
 
   } else{
 
@@ -37,8 +36,11 @@
   
     //Regernarte session id after 30 minutes
     if (time() - $_SESSION['last_regeneration'] >= $interval) {
-      session_regenerate_id(true);
-      $_SESSION['last_regeneration'] = time();
+      regenerate_session_id();
     }
   }
 
+  function regenerate_session_id(){
+    session_regenerate_id(true);
+    $_SESSION['last_regeneration'] = time();
+  }

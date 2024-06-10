@@ -18,22 +18,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     This is not needed when posting to the DB
     */
+
     try {
         
         //Grab the connection to the DB
         require_once "dbh.inc.php"; 
+        require_once "signup_model.inc.php"; 
+        //view goes here if needed
+        require_once "signup_contr.inc.php"; 
 
-        /*
-            Other alternatives to require_once:
-            require 
-            include
-            include_once
-        */
+       
+        //Error handlers -defined in contr
+        $errors = [];
 
-        //The ??? is to prevent SQL injection
+        //Check for empty entries
+        if(is_input_empty($username, $pwd, $email)){
+            $errors["empty_input"] = "Fill in all fields.";
+        }
+        //Check for valid email
+        if(is_email_invalid($email)){
+            $errors["invalid_email"] = "Email is not in a valid format.";
+        }   
+        //Check whether username is taken
+        if(is_username_taken($pdo, $username)){
+            $errors["username_taken"] = "That username is already taken.";
+        }
+
+        //Check whether email is taken
+        if(is_email_registered($pdo, $email)){
+            $errors["email_taken"] = "That email is aoready in use.";
+        }
+
+        //Need to start a session here to add errors to it
+        require_once 'config.inc.php';
+
+        if($errors){
+            $_SESSION["error_signup"] = $errors;
+            header("Location: ../index.php");
+        }
         
-        $query = "INSERT INTO users (username, pwd, email) VALUES
-            (:username , :pwd, :email);";
+        $query = "INSERT INTO users (username, pwd, email) VALUES (:username , :pwd, :email);";
         
         //These are 'prepared' statements
         // that support the above
@@ -76,6 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
 } else{
-    //Was the form submitted? If not take them home
+    //Was the form submitted correctly? If not take them home
     header("Location: ../index.php");
+    die();
 }

@@ -45,8 +45,8 @@
           if($_SESSION["username"] === "Guest"){
             echo "
             <form class='login-form' action='includes/login.inc.php' method='post'>
-            <input id='loginUsername' type='text' name='username' placeholder='Enter your username'>
-            <input id='loginPwd' type='password' name='pwd' placeholder='Enter your password'>
+            <input required id='loginUsername' type='text' name='username' placeholder='Enter your username'>
+            <input required id='loginPwd' type='password' name='pwd' placeholder='Enter your password'>
             <button>Login</button>
            </form>
                  
@@ -68,10 +68,10 @@
   
     <div>
       <h3>Sign up</h3>
-      <form action="includes/formhandler.inc.php" method="post">
-          <input type="text" name="username" placeholder="Username">
-          <input type="password" name="pwd" placeholder="Password">
-          <input type="email" name="email" placeholder="Email">
+      <form action="includes/signup.inc.php" method="post">
+          <input required type="text" name="username" placeholder="Username">
+          <input required type="password" name="pwd" placeholder="Password">
+          <input required type="email" name="email" placeholder="Email">
           <button>Signup</button>
       </form>
     </div>

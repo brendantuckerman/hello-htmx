@@ -18,7 +18,8 @@ try {
     
     //Set the PDO to throw an exception if there is an error
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $th) {
+    
+} catch (PDOException $e) {
     //throw $th;
-    echo "Connection failed: " . $th->getMessage();
+    die("Connection failed: " . $e->getMessage());
 }
