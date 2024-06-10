@@ -39,9 +39,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         // that support the above
         $stmnt = $pdo->prepare($query);
 
+        //Hash the pwd
+        $options = [
+            'cost' => 12
+        ];
+        
+            /*
+             Auto provided salt & hash. PASSWORD_DEFAULT will update when php updates. $options must be an array and can include cost (usually between 10-12). The higher the more difficult to brute force;
+            */
+          
+        $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
+
+
         //bind the :PARAMs given in $query
         $stmnt->bindParam(":username", $username);
-        $stmnt->bindParam(":pwd", $pwd);
+        $stmnt->bindParam(":pwd", $hashedPwd);
         $stmnt->bindParam(":email", $email);
         
         

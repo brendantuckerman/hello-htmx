@@ -1,3 +1,24 @@
+<?php
+
+  require_once 'config.php';
+  //Start the session
+  //session_start();
+
+  //Set a session variable
+  //$_SESSION["username"] = "furiousB";
+
+  //unset a single var
+  // unset($_SESSION["username"]);
+
+  //To purge all session data:
+  // session_unset();
+  
+  //To end the session (on leaving the page)
+  // session_destroy();
+  
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,15 +32,35 @@
 </head>
 <body>
   <header>
-     <h1>Welcome to HTMX with PHP!</h1>
-     <form class="search-form" action="search.php" method="post">
+     <?php
+
+        if(!$_SESSION["username"]){
+            $_SESSION["username"] = "Guest";
+        }
+
+        echo "<h1>Welcome to HTMX with PHP, " . $_SESSION["username"] 
+         . "</h1>";
+     ?>
+        <?php
+          if($_SESSION["username"] === "Guest"){
+            echo "
+            <form class='login-form' action='includes/login.inc.php' method='post'>
+            <input id='loginUsername' type='text' name='username' placeholder='Enter your username'>
+            <input id='loginPwd' type='password' name='pwd' placeholder='Enter your password'>
+            <button>Login</button>
+           </form>
+                 
+            ";
+          }
+        ?>
+
+     <form class="search-form" action="pages/search.php" method="post">
       <label for="search">Search for user:</label>
       <input id="search" type="text" name="usersearch" placeholder="Search...">
       <button>Search</button>
      </form>
   </header>
   <main>
-    <a href="/pages/search.php">Head to Search Page</a>
     
     
     <button hx-get="/increment">Increment</button>

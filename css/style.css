@@ -1,5 +1,13 @@
 /* Base stylesheet */
 
+body{
+    background-color: bisque;
+}
+
+h4{
+    font-size: large;
+    font-weight: 600
+}
 
 header{
     display: flex;
@@ -33,4 +41,14 @@ input[type="text"],
 input[type="password"],
 input[type="email"] {
     padding: 0.5rem;
+}
+
+/* Results */
+
+.results-item{
+    background-color: aliceblue;
+    width: 50vw;
+    padding:  4rem 2rem;
+    border-radius: 10px;
+    margin: 2rem 0;
 }

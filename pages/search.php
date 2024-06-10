@@ -21,7 +21,7 @@
       try {
           
           //Grab the connection to the DB
-          require_once "dbh.inc.php"; 
+          require_once "../includes/dbh.inc.php"; 
   
           /*
               Other alternatives to require_once:
@@ -38,20 +38,19 @@
           $stmnt = $pdo->prepare($query);
   
           //bind the :PARAMs given in $query
-          $stmnt->bindParam(":username", $username);
+          $stmnt->bindParam(":usersearch", $usersearch);
 
           
           $stmnt->execute();
+
+
+          //Grab the data as an associative array
+          $results = $stmnt->fetchAll(PDO::FETCH_ASSOC);
           
           //Kill the connection to the DB
           $pdo = NULL;
           $stmst = NULL;
           
-          //Send user to front page
-          header("Location: ../index.php");
-  
-          //Die for connections, exit() for other
-          die();
   
       } catch (PDOException $th) {
           //throw $th;
@@ -74,8 +73,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" type="text/css" href="./css/reset.css">
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" type="text/css" href="../css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
   <script src="https://unpkg.com/htmx.org@1.6.0"></script>
 </head>
 <body>
@@ -89,7 +88,28 @@
   </header>
   <main>
  <a href="/">Home</a>
-    
+
+  <section>
+    <h3>Search Results:</h3>
+
+    <?php
+        if (empty($results)) {
+            echo "<div class='no-results'>";
+            echo "<p>No results. </p>";
+            echo "<div>";
+        } else {
+            foreach ($results as $row) {
+                //htmlspecial chars prevents JS/ SQL / Cross Site Scripting
+                echo ("<div class='results-item'>");
+                echo "<h4>" . htmlspecialchars($row["username"]) . "</h4>";
+                echo "<p>" . htmlspecialchars($row["comment_text"]) . "</p>";
+                echo "<p>" . htmlspecialchars($row["created_at"]) . "</p>"; 
+                echo ("</div>");
+            }
+        }
+        
+    ?>
+  </section>
    
 </body>
 </html>
