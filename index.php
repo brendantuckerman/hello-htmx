@@ -1,6 +1,9 @@
 <?php
 
-  require_once 'config.php';
+  require_once 'includes/config.inc.php';
+  require_once 'includes/signup_view.inc.php';
+
+
   //Start the session
   //session_start();
 
@@ -63,9 +66,7 @@
   <main>
     
     
-    <button hx-get="/increment">Increment</button>
-    <p id="counter"><?php echo $count ?? 0; ?></p>
-  
+   
     <div>
       <h3>Sign up</h3>
       <form action="includes/signup.inc.php" method="post">
@@ -93,12 +94,10 @@
       </form>
     </div>
   </main>
+    
     <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_HX_REQUEST'])) {
-      $count = isset($_POST['count']) ? intval($_POST['count']) : 0;
-      $count++;
-      echo $count;
-    }
+    
+        check_signup_errors();
     ?>
 </body>
 </html>

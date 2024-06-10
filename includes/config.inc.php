@@ -28,7 +28,7 @@
   if (!isset($_SESSION['last_regeneration'])) {
     
     //strengthen protection
-    egenerate_session_id();
+    regenerate_session_id();
 
   } else{
 
