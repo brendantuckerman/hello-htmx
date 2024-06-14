@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         //Check whether email is taken
         if(is_email_registered($pdo, $email)){
-            $errors["email_taken"] = "That email is aoready in use.";
+            $errors["email_taken"] = "That email is already in use.";
         }
 
         //Need to start a session here to add errors to it
@@ -54,41 +54,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
         if($errors){
             $_SESSION["error_signup"] = $errors;
+
+            $signupData = [ //store data so user does not have to reenter
+               "username" => $username,
+               "email" => $email
+            ]; 
+
+            $_SESSION["signup_data"] = $signupData;
+
             header("Location: ../index.php");
+            die();
         }
         
-        $query = "INSERT INTO users (username, pwd, email) VALUES (:username , :pwd, :email);";
-        
-        //These are 'prepared' statements
-        // that support the above
-        $stmnt = $pdo->prepare($query);
-
-        //Hash the pwd
-        $options = [
-            'cost' => 12
-        ];
-        
-            /*
-             Auto provided salt & hash. PASSWORD_DEFAULT will update when php updates. $options must be an array and can include cost (usually between 10-12). The higher the more difficult to brute force;
-            */
-          
-        $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
-
-
-        //bind the :PARAMs given in $query
-        $stmnt->bindParam(":username", $username);
-        $stmnt->bindParam(":pwd", $hashedPwd);
-        $stmnt->bindParam(":email", $email);
-        
-        
-        $stmnt->execute();
+        create_user($pdo, $username, $pwd, $email);
+               
         
         //Kill the connection to the DB
         $pdo = NULL;
-        $stmst =NULL;
+        $stmnt =NULL;
         
         //Send user to front page
-        header("Location: ../index.php");
+        header("Location: ../index.php?signup=success");
 
         //Die for connections, exit() for other
         die();

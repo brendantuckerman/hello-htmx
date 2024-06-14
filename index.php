@@ -70,10 +70,14 @@
     <div>
       <h3>Sign up</h3>
       <form action="includes/signup.inc.php" method="post">
-          <input required type="text" name="username" placeholder="Username">
-          <input required type="password" name="pwd" placeholder="Password">
-          <input required type="email" name="email" placeholder="Email">
+          <?php 
+            signup_inputs();
+          ?>
           <button>Signup</button>
+
+          <?php
+            check_signup_errors();
+          ?>
       </form>
     </div>
     <div>
@@ -83,6 +87,7 @@
           <input type="password" name="pwd" placeholder="Password">
           <input type="email" name="email" placeholder="Email">
           <button>Update</button>
+          
       </form>
     </div>
     <div>
@@ -95,9 +100,6 @@
     </div>
   </main>
     
-    <?php
     
-        check_signup_errors();
-    ?>
 </body>
 </html>
