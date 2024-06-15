@@ -79,9 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         //Die for connections, exit() for other
         die();
 
-    } catch (PDOException $th) {
-        //throw $th;
-        die("Query failed: " . $th->getMessage());
+    } catch (PDOException $e) {
+        //throw $e;
+        die("Query failed: " . $e->getMessage());
     }
 
 

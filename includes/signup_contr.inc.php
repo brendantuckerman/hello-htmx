@@ -6,7 +6,8 @@ declare(strict_types=1);
     Controller file for supporting logic
 */
 
-function is_input_empty(string $username, string $pwd, string $email): bool {
+function is_input_empty(string $username, string $pwd, string $email): bool
+{
 
     if(empty($username) || empty($pwd) || empty($email)) {
         return true;
