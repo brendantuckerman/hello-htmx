@@ -2,7 +2,7 @@
 
   require_once 'includes/config.inc.php';
   require_once 'includes/signup_view.inc.php';
-
+  require_once 'includes/login_view.inc.php';
 
   //Start the session
   //session_start();
@@ -36,16 +36,17 @@
 <body>
   <header>
      <?php
+        
+        // if(!isset($_SESSION["user_username"])){
+        //   echo "<h1>Welcome to HTMX with PHP, Guest. </h1>";
+        // } else{
+        //   echo "<h1>Welcome to HTMX with PHP, " . $_SESSION["user_username"] 
+        //  . "</h1>";
+        // }
 
-        if(!$_SESSION["username"]){
-            $_SESSION["username"] = "Guest";
-        }
-
-        echo "<h1>Welcome to HTMX with PHP, " . $_SESSION["username"] 
-         . "</h1>";
-     ?>
-        <?php
-          if($_SESSION["username"] === "Guest"){
+        
+    
+          if(!isset($_SESSION["user_username"])){
             echo "
             <form class='login-form' action='includes/login.inc.php' method='post'>
             <input required id='loginUsername' type='text' name='username' placeholder='Enter your username'>
@@ -54,7 +55,15 @@
            </form>
                  
             ";
+          } else{
+            echo "
+            <form class='logout-form' action='includes/logout.inc.php' method='post'>
+            <button>Logout</button>
+            </form>"
+            ; 
           }
+
+          check_login_errors();
         ?>
 
      <form class="search-form" action="pages/search.php" method="post">

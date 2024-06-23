@@ -1,4 +1,10 @@
-### Hello HTMX! ###
+# Hello HTMX! #
+
+## To run ##
+
+Docker compose -up
+
+Should be running on port 80
 
 ### Table Setup if lost ###
 
@@ -48,6 +54,8 @@ UPDATE users SET username = 'newUSername', pwd = 'moresecure' WHERE id = 2;
 ```
 
 `DELETE` users:
+
+
 
 **Warning, of course ***
 
