@@ -35,33 +35,33 @@
 </head>
 <body>
   <header>
+
+      <h3>
+          <?php
+            output_username();
+          ?>
+      </h3>
+
+
+
      <?php
         
-        // if(!isset($_SESSION["user_username"])){
-        //   echo "<h1>Welcome to HTMX with PHP, Guest. </h1>";
-        // } else{
-        //   echo "<h1>Welcome to HTMX with PHP, " . $_SESSION["user_username"] 
-        //  . "</h1>";
-        // }
-
-        
-    
-          if(!isset($_SESSION["user_username"])){
-            echo "
+          if(!isset($_SESSION["user_id"])){  ?>
+            
+            <h3>Login</h3>
             <form class='login-form' action='includes/login.inc.php' method='post'>
             <input required id='loginUsername' type='text' name='username' placeholder='Enter your username'>
             <input required id='loginPwd' type='password' name='pwd' placeholder='Enter your password'>
             <button>Login</button>
            </form>
                  
-            ";
-          } else{
-            echo "
+          
+           <?php } else { ?>
+             
             <form class='logout-form' action='includes/logout.inc.php' method='post'>
             <button>Logout</button>
-            </form>"
-            ; 
-          }
+            </form>
+          <?php }
 
           check_login_errors();
         ?>

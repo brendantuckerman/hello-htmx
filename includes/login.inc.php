@@ -55,6 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //  var_dump($_SESSION);
      $newSessionId = session_create_id();
      $sessionId = $newSessionId .  "-" . $result["id"];
+     //TODO: Add user id to session cookie to allow for
+     // infomraiton on the user to be served
     //  $customId = session_create_id() . "-" . $result["id"];
     //  setcookie("custom_session_id", $customId, 0, "/", "", true, true);
      session_id(); //Create the new session
